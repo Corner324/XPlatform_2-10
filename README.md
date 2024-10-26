@@ -46,10 +46,12 @@
 ## Пример работы
 
 ### Веб-версия игры
-![Пример работы игры в браузере](screenshots/web_gameplay.gif)
+![image](https://github.com/user-attachments/assets/6c437719-5c33-4e10-aeaf-100021d3c4aa)
+
 
 ### Консольная версия (Linux/Windows)
-![Пример работы игры в консоли](screenshots/console_gameplay.gif)
+![image](https://github.com/user-attachments/assets/9bd23ca5-0f80-4b63-a8e7-8cafe52f5cc1)
+
 
 ## Тестирование
 
