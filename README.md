@@ -11,6 +11,7 @@
 ## Платформы
 
 Игра работает на следующих платформах:
+
 - Windows
 - Linux
 - Web
@@ -18,12 +19,14 @@
 ## Требования
 
 Для запуска игры на локальной машине с использованием Node.js необходимо:
+
 - Node.js версии 16.0 или выше
 - npm (Node Package Manager)
 
 ## Сборка и запуск
 
 ### Windows/Linux (Node.js)
+
 1. Установите [Node.js](https://nodejs.org) и npm, если они еще не установлены.
 2. Клонируйте репозиторий на вашу локальную машину:
    ```bash
@@ -36,26 +39,32 @@
    ```
 4. Запустите игру:
    ```bash
-   node index.js
+   make run_terminal
    ```
 
 ### Web (браузер)
-1. Откройте файл `index.html` в любом современном браузере.
-2. Игра загрузится, и вы сможете играть непосредственно в браузере.
+
+1. Откроетйе [http://localhost:3000/](http://localhost:3000/) в браузере.
+2. Запустите игру:
+
+   ```
+   make run_web
+   ```
 
 ## Пример работы
 
 ### Веб-версия игры
+
 ![image](https://github.com/user-attachments/assets/6c437719-5c33-4e10-aeaf-100021d3c4aa)
 
-
 ### Консольная версия (Linux/Windows)
-![image](https://github.com/user-attachments/assets/9bd23ca5-0f80-4b63-a8e7-8cafe52f5cc1)
 
+![image](https://github.com/user-attachments/assets/9bd23ca5-0f80-4b63-a8e7-8cafe52f5cc1)
 
 ## Тестирование
 
 Автоматическое тестирование игры реализовано через набор предопределенных диалогов с игрой. Для запуска тестов выполните команду:
+
 ```bash
 npm test
 ```

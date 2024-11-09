@@ -1,12 +1,11 @@
-// Функция для получения пользовательского ввода
 function getUserInput(question) {
     return new Promise((resolve) => {
         if (typeof window !== 'undefined') {
-            // Мы в браузере
+            // Браузере
             const answer = prompt(question);
             resolve(answer);
         } else {
-            // Мы в Node.js
+            // Node.js
             const readline = require('readline');
             const rl = readline.createInterface({
                 input: process.stdin,
@@ -20,12 +19,12 @@ function getUserInput(question) {
     });
 }
 
-// Функция для генерации случайного числа в диапазоне [min, max]
+// Генерируем случайное число
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Функция для вывода вступления
+// Вызов вступления
 function showIntro() {
     console.log(" ".repeat(28) + "TWO TO TEN");
     console.log(" ".repeat(15) + "CREATIVE COMPUTING  MORRISTOWN NEW JERSEY");
@@ -50,7 +49,7 @@ function showIntro() {
     console.log("WITH THE NUMBER AND YOUR WINNINGS ARE DETERMINED.");
 }
 
-// Функция для ввода ставки с валидацией
+// Валидация ввода
 async function getBet(currentMoney) {
     let bet;
     while (true) {
@@ -66,64 +65,64 @@ async function getBet(currentMoney) {
     return bet;
 }
 
-// Функция для генерации тайного числа и подсказки
+// Генерируем случайное число с подсказкой
 function generateTargetNumber() {
-    let baseNumber = randomInt(25, 34); // Тайное базовое число
-    let targetNumber = randomInt(baseNumber, baseNumber * 2); // Само тайное число
-    let deviationPercentage = randomInt(1, 15) / 100; // Отклонение в процентах
+    let baseNumber = randomInt(25, 34);
+    let targetNumber = randomInt(baseNumber, baseNumber * 2); 
+    let deviationPercentage = randomInt(1, 15) / 100;
     let hint = Math.random() < 0.5 
         ? Math.floor(targetNumber - targetNumber * deviationPercentage)
         : Math.floor(targetNumber + targetNumber * deviationPercentage);
     return { targetNumber, hint };
 }
 
-// Функция для получения карты с ограничением
+// Карта с ограничением
 function getAllowanceCard() {
-    return randomInt(2, 10); // Карта с ограничением — случайное число от 2 до 10
+    return randomInt(2, 10);
 }
 
-// Функция для добавления карт и проверки, не превысили ли лимит
+// Проверка на превышение лимита
 async function drawCards(targetNumber, allowanceCard) {
     let total = 0;
     let cardCount = 0;
     while (true) {
         cardCount++;
-        let card = randomInt(2, 10); // Получаем случайную карту
+        let card = randomInt(2, 10);
         total += card;
         console.log(`CARD #${cardCount} IS A ${card}. YOU ARE TRYING TO COME NEAR ${targetNumber}`);
         console.log(`YOUR TOTAL IS ${total}`);
 
         if (total > targetNumber) {
             console.log(`YOUR TOTAL IS OVER THE NUMBER ${targetNumber} AN AUTOMATIC LOSS!`);
-            return false; // Проигрыш
+            return false;
         }
 
         // Спрашиваем игрока, хочет ли он продолжать брать карты
         let continueDrawing = await getUserInput("DO YOU WANT TO CONTINUE (Y/N)? ");
         if (continueDrawing.toUpperCase() !== 'Y') {
-            break; // Игрок решил остановиться
+            break;
         }
     }
 
-    // Проверяем, попадает ли сумма в диапазон допустимого отклонения
+    // Проверка на победу
     if (total >= targetNumber - allowanceCard && total <= targetNumber) {
         console.log(`YOU WIN!  THE NUMBER WAS ${targetNumber} YOUR GUESS TOTAL WAS ${total}`);
         console.log("WITHIN YOUR LIMIT CARD.");
-        return true; // Победа
+        return true;
     } else {
         console.log(`YOU BLEW IT!  THE NUMBER WAS ${targetNumber}, OUTSIDE YOUR LIMIT BY ${Math.abs(targetNumber - allowanceCard - total)}`);
-        return false; // Проигрыш
+        return false;
     }
 }
 
-// Основная функция игры
+
 async function playGame() {
-    let money = 200; // Стартовая сумма денег
+    let money = 200;
     showIntro();
 
     while (money > 0) {
-        let { targetNumber, hint } = generateTargetNumber(); // Генерируем тайное число и подсказку
-        let allowanceCard = getAllowanceCard(); // Получаем карту с ограничением
+        let { targetNumber, hint } = generateTargetNumber();
+        let allowanceCard = getAllowanceCard();
 
         let bet = await getBet(money);
         console.log();
@@ -133,13 +132,13 @@ async function playGame() {
         console.log("HERE WE GO");
         console.log();
 
-        // Тянем карты и проверяем результат
+        // Вытягивание карт
         let won = await drawCards(hint, allowanceCard);
 
         if (won) {
-            money += bet; // Победа — добавляем ставку
+            money += bet; // Победа
         } else {
-            money -= bet; // Проигрыш — вычитаем ставку
+            money -= bet; // Проигрыш
         }
 
         console.log(`YOU NOW HAVE $${money} IN CASH TO BET IN THE NEXT GAME!`);
@@ -157,5 +156,15 @@ async function playGame() {
     }
 }
 
-// Запускаем игру
+
 playGame();
+
+module.exports = {
+    randomInt,
+    showIntro,
+    getBet,
+    generateTargetNumber,
+    getAllowanceCard,
+    drawCards,
+    playGame
+    };

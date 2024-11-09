@@ -350,5 +350,14 @@ async function playGame() {
 // Запускаем игру
 playGame();
 
+module.exports = {
+    randomInt,
+    showIntro,
+    getBet,
+    generateTargetNumber,
+    getAllowanceCard,
+    drawCards,
+    playGame
+    };
 }).call(this)}).call(this,require('_process'))
 },{"_process":2,"readline":1}]},{},[3]);
